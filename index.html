@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h1>Speak Now - V4</h1>
+    <h1>Speak Now - V5</h1>
     <button id="start">Start Listening</button>
     <button id="stop">Stop Listening</button>
     <p id="label"></p>
@@ -21,9 +21,16 @@
         recognition.lang = 'en-US';
         recognition.interimResults = false;
         recognition.maxAlternatives = 5;
+        recognition.continuous = true;
 
-        var momWords = ['mom', 'mama', 'mum'];
-        var dadWords = ['dad', 'dada'];
+        var keywordMap = {
+            'mom': 'mom.jpeg',
+            'mama': 'mom.jpeg',
+            'mum': 'mom.jpeg',
+            'dad': 'dad.jpeg',
+            'dada': 'dad.jpeg'
+            // Add more keywords and images here
+        };
 
         document.querySelector('#start').addEventListener('click', function(){
             recognition.start();
@@ -38,12 +45,9 @@
             var img = document.querySelector('#image');
             var label = document.querySelector('#label');
             label.textContent = transcript; // Display the transcribed text
-            if (momWords.includes(transcript)) {
-                img.src = 'mom.jpeg'; // now it refers to the image in your repository
-                img.alt = 'Mom';
-            } else if (dadWords.includes(transcript)) {
-                img.src = 'dad.jpeg'; // now it refers to the image in your repository
-                img.alt = 'Dad';
+            if (keywordMap[transcript]) {
+                img.src = keywordMap[transcript]; // Use the keyword map to get the image filename
+                img.alt = transcript;
             }
         };
     </script>
