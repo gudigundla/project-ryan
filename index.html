@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voice Command Page</title>
+</head>
+<body>
+    <h1>Speak Now</h1>
+    <button id="start">Start Listening</button>
+    <button id="stop">Stop Listening</button>
+    <p id="transcript"></p>
+
+    <script>
+        var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 5;
+
+        document.querySelector('#start').addEventListener('click', function(){
+            recognition.start();
+        });
+
+        document.querySelector('#stop').addEventListener('click', function(){
+            recognition.stop();
+        });
+
+        recognition.onresult = function(event) {
+            var transcript = event.results[event.results.length-1][0].transcript;
+            document.querySelector('#transcript').textContent = transcript;
+        };
+    </script>
+</body>
+</html>
