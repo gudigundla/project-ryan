@@ -7,7 +7,7 @@
     <h1>Speak Now</h1>
     <button id="start">Start Listening</button>
     <button id="stop">Stop Listening</button>
-    <p id="transcript"></p>
+    <img id="image" src="" alt="">
 
     <script>
         var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
@@ -24,8 +24,15 @@
         });
 
         recognition.onresult = function(event) {
-            var transcript = event.results[event.results.length-1][0].transcript;
-            document.querySelector('#transcript').textContent = transcript;
+            var transcript = event.results[event.results.length-1][0].transcript.toLowerCase();
+            var img = document.querySelector('#image');
+            if (transcript === 'mom' || transcript === 'mama' || transcript === 'mum') {
+                img.src = 'mom.jpeg'; // now it refers to the image in your repository
+                img.alt = 'Mom';
+            } else if (transcript === 'dad' || transcript === 'dada') {
+                img.src = 'dad.jpeg'; // now it refers to the image in your repository
+                img.alt = 'Dad';
+            }
         };
     </script>
 </body>
