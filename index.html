@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h1>Speak Now - V5</h1>
+    <h1>Speak Now - v6</h1>
     <button id="start">Start Listening</button>
     <button id="stop">Stop Listening</button>
     <p id="label"></p>
@@ -48,6 +48,9 @@
             if (keywordMap[transcript]) {
                 img.src = keywordMap[transcript]; // Use the keyword map to get the image filename
                 img.alt = transcript;
+                img.style.display = 'block'; // Make the image visible
+            } else {
+                img.style.display = 'none'; // Hide the image
             }
         };
     </script>
