@@ -10,10 +10,11 @@
     </style>
 </head>
 <body>
-    <h1>Speak Now - V7</h1>
+    <h1>Speak Now - V8</h1>
     <button id="start">Start Listening</button>
     <button id="stop">Stop Listening</button>
     <p id="label"></p>
+    <p id="debug"></p>
     <img id="image" src="" alt="">
 
     <script>
@@ -44,10 +45,14 @@
             var transcript = event.results[event.results.length-1][0].transcript.toLowerCase();
             var img = document.querySelector('#image');
             var label = document.querySelector('#label');
+            var debug = document.querySelector('#label');
             label.textContent = transcript; // Display the transcribed text
             if (keywordMap[transcript]) {
                 img.src = keywordMap[transcript] + '?' + new Date().getTime(); // Add a unique query parameter
                 img.alt = transcript;
+            }
+            else {
+                debug.textContent = 'did not find a match for ' + transcript + '.'
             }
         };
     </script>
