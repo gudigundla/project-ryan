@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Voice Command Page</title>
+    <title>Voice Command Page - V3</title>
+    <style>
+        #image {
+            max-width: 50%; /* Adjust as needed */
+            max-height: 50%; /* Adjust as needed */
+        }
+    </style>
 </head>
 <body>
-    <h1>Speak Now - V2 </h1>
+    <h1>Speak Now</h1>
     <button id="start">Start Listening</button>
     <button id="stop">Stop Listening</button>
+    <p id="label"></p>
     <img id="image" src="" alt="">
 
     <script>
@@ -14,6 +21,9 @@
         recognition.lang = 'en-US';
         recognition.interimResults = false;
         recognition.maxAlternatives = 5;
+
+        var momWords = ['mom', 'mama', 'mum'];
+        var dadWords = ['dad', 'dada'];
 
         document.querySelector('#start').addEventListener('click', function(){
             recognition.start();
@@ -26,10 +36,12 @@
         recognition.onresult = function(event) {
             var transcript = event.results[event.results.length-1][0].transcript.toLowerCase();
             var img = document.querySelector('#image');
-            if (transcript === 'mom' || transcript === 'mama' || transcript === 'mum') {
+            var label = document.querySelector('#label');
+            label.textContent = transcript; // Display the transcribed text
+            if (momWords.includes(transcript)) {
                 img.src = 'mom.jpeg'; // now it refers to the image in your repository
                 img.alt = 'Mom';
-            } else if (transcript === 'dad' || transcript === 'dada') {
+            } else if (dadWords.includes(transcript)) {
                 img.src = 'dad.jpeg'; // now it refers to the image in your repository
                 img.alt = 'Dad';
             }
