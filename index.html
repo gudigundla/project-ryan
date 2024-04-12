@@ -20,7 +20,7 @@
     <script>
         var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
         recognition.lang = 'en-US';
-        recognition.interimResults = true;
+        recognition.interimResults = false;
         recognition.maxAlternatives = 5;
         recognition.continuous = true;
 
@@ -42,7 +42,7 @@
         });
 
         recognition.onresult = function(event) {
-            var transcript = event.results[event.results.length-1][0].transcript.toLowerCase();
+            var transcript = event.results[event.results.length-1][0].transcript.toLowerCase().trim();
             var img = document.querySelector('#image');
             var label = document.querySelector('#label');
             var debug = document.querySelector('#label');
@@ -50,9 +50,6 @@
             if (keywordMap[transcript]) {
                 img.src = keywordMap[transcript] + '?' + new Date().getTime(); // Add a unique query parameter
                 img.alt = transcript;
-            }
-            else {
-                debug.textContent = 'did not find a match for ' + transcript + '. keywordMap: ' + keywordMap   
             }
         };
     </script>
